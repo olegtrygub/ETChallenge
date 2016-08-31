@@ -20,7 +20,9 @@ examples - contains map examples that can be input into game
 ##Running
 battleship.py "filewithmap1" "filewithmap2"
 
-examples of maps are in examples folder
+Coordinates are in traditional layout for battleship - (x, y), where x, y belong to 1..size. Left upper corner is (1, 1),
+right bottom - (size, size)
+ 
 
 ##Implementation of the field abstraction
 Field is created from a map that is loaded from input file. After that, program runs DFS to discover ships
