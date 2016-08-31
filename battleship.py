@@ -3,6 +3,9 @@ from field import Field
 from field import Result
 
 def read_map_from_file(path):
+    """
+    Reads map from its representation in file
+    """
     input_file = open(path, 'r')
     battlemap = []
     size = int(input_file.readline())
@@ -12,11 +15,19 @@ def read_map_from_file(path):
     return battlemap
 
 def compare_fields(field1, field2):
+    """
+    Compares two fields and checks that the game is fair.
+    method is very naive and just checks that field sizes are the same, not the ships layot
+    todo: check ships layout
+    """"
     if field1.field_size() == field2.field_size():
         return True
     return False
 
 def read_coordinates(coordinates_input, field_size):
+    """
+    Reads coordinate from keyboard and checks for input correctness
+    """
     coordinates = coordinates_input.strip().split(" ")
     if len(coordinates) != 2:
         print "Please input two coordidates"
@@ -28,6 +39,9 @@ def read_coordinates(coordinates_input, field_size):
     return x, y
 
 def run(fields):
+    """
+    Main game loop
+    """
     turn = 0
     if len(fields) != 2 or not compare_fields(fields[0], fields[1]):
         print "The game should be fair. Enter two eqaully hard fields!"
@@ -47,6 +61,6 @@ def run(fields):
 
 
 if len(sys.argv) != 3:
-    print "Run command in the format: python battleship.py <path1 pathtomap2"
+    print "Run command in the format: python battleship.py pathtomap1 pathtomap2"
 else:
     run([Field(read_map_from_file(sys.argv[1])), Field(read_map_from_file(sys.argv[2]))])
