@@ -1,4 +1,5 @@
-import field
+from field import Field
+from field import Result
 
 def field_tests():
     field = Field([[-1, 0, 0], [0, -1, 0], [0, 0, -1]])
@@ -23,9 +24,11 @@ def field_tests():
     assert field.nships == 1
     assert field.hit(1, 4) == Result.Win
     assert field.nships == 0
-    field = Field([[ 0,  0,  0,-1, -1], \
-                   [ 0,  0,  0, 0, -1], \
+    field = Field([[-1, -1,  0,-1, -1], \
+                   [ 0, -1,  0, 0, -1], \
                    [-1,  0,  0, 0,  0], \
-                   [-1,  0, -1, 0,  0], \
+                   [-1,  0, -1, 0, -1], \
                    [-1, -1, -1, 0,  0]])
-    assert field.nships == 2
+    assert field.nships == 4
+
+field_tests()

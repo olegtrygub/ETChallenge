@@ -8,7 +8,7 @@ class Field:
         self.ships = []
         self.load_map()
         self.nships = len(self.ships)
-
+        
     def visit(self, i, j, cnt):
         if self.map[i][j] >= 0:
             return
@@ -52,3 +52,6 @@ class Field:
             return Result.Miss
 
         return self.hit_ship(x, y)
+
+    def field_size(self):
+        return self.size

@@ -1,5 +1,6 @@
 import sys
-import field
+from field import Field
+from field import Result
 
 def read_map_from_file(path):
     input_file = open(path, 'r')
@@ -10,12 +11,34 @@ def read_map_from_file(path):
     input_file.close()
     return battlemap
 
+def compare_fields(field1, field2):
+    if field1.field_size() == field2.field_size():
+        return True
+    return False
+
+def read_coordinates(coordinates_input, field_size):
+    coordinates = coordinates_input.strip().split(" ")
+    if len(coordinates) != 2:
+        print "Please input two coordidates"
+        return (-1, -1)
+    y, x = int(coordinates[0]) - 1, int(coordinates[1]) - 1
+    if y not in range(0, field_size) or x not in range(0, field_size):
+        print "Please enter valid coordinates in range 1 .. " + str(field_size)
+        return (-1, -1)
+    return x, y
+
 def run(fields):
     turn = 0
+    if len(fields) != 2 or not compare_fields(fields[0], fields[1]):
+        print "The game should be fair. Enter two eqaully hard fields!"
+        return
+
     while True:
         print "Player " + str(turn + 1) + " turn:"
-        coordinates = raw_input().split(" ")
-        y, x = int(coordinates[0]) -  1, int(coordinates[1]) - 1
+        x, y = read_coordinates(raw_input(), fields[0].field_size())
+        if (x, y) == (-1, -1):
+            continue
+        print (x, y)
         print fields[1 - turn].ships
         result = fields[1 - turn].hit(x, y)
         print result
@@ -25,4 +48,7 @@ def run(fields):
             turn = 1 - turn
 
 
-run([field.Field(read_map_from_file(sys.argv[1])), field.Field(read_map_from_file(sys.argv[2]))])
+if len(sys.argv) < 3:
+    print "Run command in the format: python battleship.py <path1 pathtomap2"
+else:
+    run([Field(read_map_from_file(sys.argv[1])), Field(read_map_from_file(sys.argv[2]))])
