@@ -38,8 +38,6 @@ def run(fields):
         x, y = read_coordinates(raw_input(), fields[0].field_size())
         if (x, y) == (-1, -1):
             continue
-        print (x, y)
-        print fields[1 - turn].ships
         result = fields[1 - turn].hit(x, y)
         print result
         if result == Result.Win:
@@ -48,7 +46,7 @@ def run(fields):
             turn = 1 - turn
 
 
-if len(sys.argv) < 3:
+if len(sys.argv) != 3:
     print "Run command in the format: python battleship.py <path1 pathtomap2"
 else:
     run([Field(read_map_from_file(sys.argv[1])), Field(read_map_from_file(sys.argv[2]))])
