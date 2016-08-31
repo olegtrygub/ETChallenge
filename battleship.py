@@ -19,7 +19,7 @@ def compare_fields(field1, field2):
     Compares two fields and checks that the game is fair.
     method is very naive and just checks that field sizes are the same, not the ships layot
     todo: check ships layout
-    """"
+    """
     if field1.field_size() == field2.field_size():
         return True
     return False
